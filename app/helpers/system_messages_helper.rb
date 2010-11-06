@@ -36,7 +36,7 @@ module SystemMessagesHelper
 
     current_user.system_messages.each do |sm|
       system_message_data = system_message_data(sm)
-      system_message_links << link_to(icon_tag(system_message_data[:icon]) + system_message_data[:message], system_message_data[:url]) + "(#{link_to 'x', user_system_message_path(current_user, sm), :class => 'delete_system_message', :method => 'delete'})" unless system_message_data.blank?
+      system_message_links << link_to(icon_tag(system_message_data[:icon]) + system_message_data[:message], system_message_data[:url]) + "(#{link_to 'x', user_system_message_path(current_user, sm), :class => 'delete_system_message'})" unless system_message_data.blank?
     end
 
     Group.active.has_waiting_for_approval.id_equals(Group.active.owned(current_user).map(&:id)).each do |group|
