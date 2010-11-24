@@ -106,6 +106,7 @@ div.input_line textarea {
       <span style="display:<%= display_type %>">
         <%= radio_button_tag("publication_type", "public", params[:publication_type] == "public", :id=>"publication_type_public") -%><%= label_tag("publication_type_public", _('Open to All')) %>
       </span>
+      <%= radio_button_tag("publication_type", "protected", params[:publication_type] == "protected", :id=>"publication_type_protected") %><%= label_tag("publication_type_protected", _('Specify Directly')) %>
     <% else -%>
       <%= radio_button_tag("publication_type", "protected", params[:publication_symbols_value] == current_user.symbol, :id=>"publication_type_owner_only") %><%= label_tag("publication_type_owner_only", _('Owner Only')) %>
       <%= "&nbsp;|&nbsp;" %>
@@ -113,8 +114,8 @@ div.input_line textarea {
         <%= radio_button_tag("publication_type", "public", params[:publication_type] == "public", :id=>"publication_type_public") -%><%= label_tag("publication_type_public", _('Open to All')) %>
       </span>
       <%= radio_button_tag("publication_type", "private", params[:publication_type] == "private", :id=>"publication_type_private") -%><%= label_tag("publication_type_private", _("Members Only")) %>
+      <%= radio_button_tag("publication_type", "protected", (params[:publication_type] == "protected" && params[:publication_symbols_value] != current_user.symbol), :id=>"publication_type_protected") %><%= label_tag("publication_type_protected", _('Specify Directly')) %>
     <% end -%>
-    <%= radio_button_tag("publication_type", "protected", (params[:publication_type] == "protected" && params[:publication_symbols_value] != current_user.symbol), :id=>"publication_type_protected") %><%= label_tag("publication_type_protected", _('Specify Directly')) %>
 
     <div id="editor_symbols_space" style="display: none; margin-top: 5px;">
       <%= check_box_tag 'editor_symbol', @board_entry.symbol, params[:editor_symbol] %><%= label_tag :editor_symbol, _('Edit by Members Allowed') %>
