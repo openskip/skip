@@ -4,19 +4,27 @@
 
 <div class="<%= comment_class %> ui-corner-all" id="comment_<%= comment.id %>_<%= level %>">
   <div class="header">
-    <span class="<%= comment_title_class @current_user, comment, checked_on %>">
-      <%= user_link_to(comment.user) %><span class="thankyou_link"><%= thankyou_link_to comment.user %></span>
-      <span class="date"><%= "[ #{comment.created_on.to_s(:standard)} ]" %></span>
+    <div class="comment_thumbnail">
+      <%= show_picture(comment.user, :width => 48, :height => 48) %>
+    </div>
+
+    <div class="<%= comment_title_class @current_user, comment, checked_on %>">
+      <%= user_link_to(comment.user) %>
+      <span class="thankyou_link"><%= thankyou_link_to comment.user %></span><br>
+      <span class="date"><%= "#{comment.created_on.to_s(:standard)}" %></span>
       <%= icon_with_information(@current_user, comment, checked_on) %>
-    </span>
-    <span class="buttons">
+    </div>
+
+    <div class="buttons">
       <%= dummy_link_to(icon_tag('comment_edit', { :alt => _("Edit"), :title => _("Edit") }) + _("Edit"), :id => "comment_edit_link_#{comment.id}", :class => "comment_edit_link") if writer?(comment, session[:user_id]) %>
       <%= link_to(icon_tag('comment_delete', { :alt => _("Delete"), :title => _("Delete") }) + _("Delete"), {:controller => "board_entries", :action => "destroy_comment", :id => comment.id}, :confirm => _('Are you sure to delete?'), :method => :post) if (comment_writer?(comment, session[:user_id]) && comment.children.size == 0) %>
       <% if level <= BoardEntryComment.limit_level -%>
       <span class="link_nest_comment" id='link_nest_comment_<%= comment.id %>'><%= dummy_link_to(icon_tag("comment_add", { :alt => _("Reply to this comment"), :title => _("Reply to this comment")}) + _("Reply"), :id => "comment_nest_link_#{comment.id}_#{level}", :class => "comment_nest_link") %></span>
       <% end -%>
-    </span>
+    </div>
+
   </div><!-- header -->
+  <div style='clear: both'></div>
 
   <div id='comment_contents_<%= comment.id %>' >
     <%= render(:partial => 'board_entries/comment_contents', :locals => { :comment => comment }) %>

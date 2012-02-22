@@ -1384,23 +1384,32 @@ div#board_entry_comments
     :margin-bottom 5px
     :_width 100%
     div.header
+      !tn_size    = 48px
+      !tn_padding = 3px
       :border-bottom 1px dotted #aaa
       :position relative
-      :height 1.8em
+      height = !tn_size + (!tn_padding * 2)
       :padding 1px 5px
       :vertical-align text-bottom
       :_width 100%
-      span.title, span.buttons
-        :position absolute
-        :bottom 3px
-      span.title
+      div.title
+        :float left
+        margin  = !tn_padding
+        padding = !tn_padding
+        :line-height 1.8em
         :width 50%
-        :left 2px
         span.date
           :font-size 0.8em
         &.current_user
           :background-color #ffefcc
-      span.buttons
+      div.comment_thumbnail
+        width   = !tn_size
+        height  = !tn_size
+        padding = !tn_padding
+        :float left
+      div.buttons
+        :position absolute
+        :bottom 3px
         :right 2px
 
 div#hide_action
