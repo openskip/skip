@@ -85,7 +85,7 @@ class SearchController < ApplicationController
     params[:offset] ||= 0
 
     search = Search.new(params, current_user.belong_symbols_with_collaboration_apps)
-    FullTextSearchLog.create(:query => params[:full_text_query]) if SkipEmbedded::InitialSettings['enable_collect_logs']
+    FullTextSearchLog.create(:query => params[:query]) if SkipEmbedded::InitialSettings['enable_collect_logs']
     if search.error.blank?
       # TODO: インスタンス変数に代入することなく@searchで画面表示
       @invisible_count = search.invisible_count
